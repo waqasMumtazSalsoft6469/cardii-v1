@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>573687458591-ip0i1fodnrm8kiv2m1jhtr0tt4iqq25t.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.573687458591-ip0i1fodnrm8kiv2m1jhtr0tt4iqq25t</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>573687458591-f0antl7tdtlqfaj26rn3o8ucg2ca9nuo.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCbHzUjF7nKSJGx3u3iUUOxpi4tsEoSpMU</string>
+	<key>GCM_SENDER_ID</key>
+	<string>573687458591</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.hugloren.royoorder</string>
+	<key>PROJECT_ID</key>
+	<string>hugloren-order</string>
+	<key>STORAGE_BUCKET</key>
+	<string>hugloren-order.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:573687458591:ios:5efd722ea365e7f2f65e2a</string>
+</dict>
+</plist>

@@ -1,0 +1,16 @@
+#include "Pods/Target Support Files/Pods-available_pods-Hugloren/Pods-available_pods-Hugloren.release.xcconfig"
+
+PROJECT_APPLE_ID = 6523426000
+PROJECT_BUNDLE_ID = com.hugloren.royoorder
+PROJECT_APP_VERSION = 1.0
+PROJECT_BUILD_NUMBER =1
+PROJECT_APP_NAME = Hugloren
+PROJECT_GOOGLE_CLIENT_ID = 573687458591-ip0i1fodnrm8kiv2m1jhtr0tt4iqq25t.apps.googleusercontent.com
+PROJECT_GOOGLE_REVERSE_CLIENT_ID = com.googleusercontent.apps.573687458591-ip0i1fodnrm8kiv2m1jhtr0tt4iqq25t
+PROJECT_FACEBOOK_ID = 170941418241602
+PROJECT_TWITTER_ID = twitterkit-R66DHARfuoYAPowApUxNxwbPi
+PROJECT_PLIST = HuglorenInfo
+PROJECT_GOOGLE_PLACE_KEY = AIzaSyB85kLYYOmuAhBUPd7odVmL6gnQsSGWU-4
+PROJECT_ENTITLEMENT = Hugloren.entitlements
+CODE_PUSH_KEY = QiEo4QtfugLoPGGcGF9jVPGKjpBaJ-M3nTJEU
+

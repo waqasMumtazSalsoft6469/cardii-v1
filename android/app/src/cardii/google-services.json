@@ -1,0 +1,70 @@
+{
+  "project_info": {
+    "project_number": "31314634723",
+    "project_id": "cardii-order",
+    "storage_bucket": "cardii-order.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:31314634723:android:282b0b1325aeb78d6c62d6",
+        "android_client_info": {
+          "package_name": "com.cardii.royoorder"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "31314634723-c2kg08t15mi2srakn8jk72nnasi589lj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.cardii.royoorder",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "31314634723-fp3totm3audb4bia8kbqcr2sb6o5u02d.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.cardii.royoorder",
+            "certificate_hash": "6e35fcb20bda370ed0025e8c1df6109a03d09b6e"
+          }
+        },
+        {
+          "client_id": "31314634723-hcg71aloiaf29btdg1t6jjmd10boef45.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.cardii.royoorder",
+            "certificate_hash": "a88b766ebe08c535516406fab3741781973c03ad"
+          }
+        },
+        {
+          "client_id": "31314634723-51pqkviic88ecm9cgo7mo3fajliqaqvj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCr5NNxX_AjveZ2_0YZ9dz6abzU358WuLg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "31314634723-51pqkviic88ecm9cgo7mo3fajliqaqvj.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "31314634723-7dck1n49nib6848hsvg61avj3uv8m6sa.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.cardii.royoorder"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
