@@ -10,7 +10,7 @@ import {
   View,
 } from 'react-native';
 import Geocoder from 'react-native-geocoding';
-import RNGooglePlaces from 'react-native-google-places';
+// import RNGooglePlaces from 'react-native-google-places';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import Modal from 'react-native-modal';
 import { useSelector } from 'react-redux';
@@ -175,11 +175,11 @@ const AddressModal = ({
    */
   const getPlacesPrediction = (data) => {
     // console.log(data, 'data>>>>');
-    RNGooglePlaces.getAutocompletePredictions(data)
-      .then((results) => {
-        updateState({ dropDownData: results });
-      })
-      .catch((error) => { });
+    // RNGooglePlaces.getAutocompletePredictions(data)
+    //   .then((results) => {
+    //     updateState({ dropDownData: results });
+    //   })
+    //   .catch((error) => { });
   };
 
   /*************************** On Text Change
@@ -196,11 +196,11 @@ const AddressModal = ({
   /*************************** Place Id look Up
    */ const placeIdLookUp = (data) => {
     if (data?.placeID) {
-      RNGooglePlaces.lookUpPlaceByID(data.placeID)
-        .then((results) =>
-          addressHelper({ ...results, address: data.fullText || data.address }),
-        )
-        .catch((error) => { });
+      // RNGooglePlaces.lookUpPlaceByID(data.placeID)
+      //   .then((results) =>
+      //     addressHelper({ ...results, address: data.fullText || data.address }),
+      //   )
+      //   .catch((error) => { });
     } else {
     }
   };

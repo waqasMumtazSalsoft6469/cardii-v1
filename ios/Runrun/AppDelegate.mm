@@ -5,8 +5,8 @@
 #import "RNSplashScreen.h"  
 #import <React/RCTLinkingManager.h> //deeplinking
 #import <Firebase.h>
-#import <GoogleMaps/GoogleMaps.h>
-#import <GooglePlaces/GooglePlaces.h>
+//#import <GoogleMaps/GoogleMaps.h>
+//#import <GooglePlaces/GooglePlaces.h>
 #import <CodePush/CodePush.h>
 // AppDelegate.m
  
@@ -23,10 +23,10 @@
   // They will be passed down to the ViewController used by React Native.
   self.initialProps = @{};
   //Pick xconfig values into Objective C files
-  NSString *googlePlacesKey = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"PROJECT_GOOGLE_PLACE_KEY"];
-  [GMSPlacesClient provideAPIKey:googlePlacesKey];
-  [GMSServices provideAPIKey:googlePlacesKey];
-  
+ // NSString *googlePlacesKey = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"PROJECT_GOOGLE_PLACE_KEY"];
+//  [GMSPlacesClient provideAPIKey:googlePlacesKey];
+//  [GMSServices provideAPIKey:googlePlacesKey];
+//  
 //  [self documentsPathForFileName];
   
   return [super application:application didFinishLaunchingWithOptions:launchOptions];

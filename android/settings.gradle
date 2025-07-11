@@ -13,5 +13,5 @@ project(':react-native-code-push').projectDir = new File(rootProject.projectDir,
 include ':react-native-bluetooth-escpos-printer'
 project(':react-native-bluetooth-escpos-printer').projectDir = new File(rootProject.projectDir, '../node_modules/@brooons/react-native-bluetooth-escpos-printer/android')
 includeBuild('../node_modules/@react-native/gradle-plugin')
-include ':react-native-zendesk-chat'
-project(':react-native-zendesk-chat').projectDir = new File(rootProject.projectDir,	'../node_modules/react-native-zendesk-chat/android')
+// include ':react-native-zendesk-chat'
+// project(':react-native-zendesk-chat').projectDir = new File(rootProject.projectDir,	'../node_modules/react-native-zendesk-chat/android')

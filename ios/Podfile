@@ -35,7 +35,7 @@ abstract_target 'available_pods' do
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
 
-   pod 'react-native-google-places', :path => '../node_modules/react-native-google-places'
+  #  pod 'react-native-google-places', :path => '../node_modules/react-native-google-places'
    pod 'react-native-date-picker', :path => '../node_modules/react-native-date-picker'
   setup_permissions([
    'AppTrackingTransparency',
@@ -91,5 +91,14 @@ post_install do |installer|
       target.remove_from_project
     end
   end
+
+  # Fix ARCHS issue for all pods
+  # installer.pods_project.targets.each do |target|
+  #   target.build_configurations.each do |config|
+  #     config.build_settings['ARCHS'] = 'arm64' # Force ARM64 only (M1/M2 compatibility)
+  #     config.build_settings['VALID_ARCHS'] = 'arm64 arm64e' # Modern iOS devices only
+  #   end
+  # end
+
 end
 end

@@ -1,15 +1,17 @@
-import { StyleSheet } from 'react-native';
-import colors from '../../styles/colors';
+import { StyleSheet, Dimensions } from "react-native";
+import colors from "../../styles/colors";
 import {
   height,
   moderateScale,
   moderateScaleVertical,
   textScale,
   width,
-} from '../../styles/responsiveSize';
+} from "../../styles/responsiveSize";
 
 export default ({ themeColors, fontFamily }) => {
   const styles = StyleSheet.create({
+    child: { width, justifyContent: "center" },
+    text: { fontSize: width * 0.5, textAlign: "center" },
     modalContainer: {
       backgroundColor: colors.white,
       // position: 'absolute',
@@ -18,7 +20,7 @@ export default ({ themeColors, fontFamily }) => {
       // bottom: 0,
       // top: height - height / 3,
       borderRadius: moderateScale(25),
-      overflow: 'hidden',
+      overflow: "hidden",
 
       // paddingBottom: moderateScaleVertical(30),
       height: height / 3.5,
@@ -26,9 +28,9 @@ export default ({ themeColors, fontFamily }) => {
       width: width,
     },
     absolute: {
-      position: 'absolute',
-      alignItems: 'center',
-      justifyContent: 'center',
+      position: "absolute",
+      alignItems: "center",
+      justifyContent: "center",
       height: moderateScaleVertical(30),
       top: 0,
       left: 0,
@@ -37,13 +39,13 @@ export default ({ themeColors, fontFamily }) => {
       borderRadius: moderateScaleVertical(15),
     },
     topLogo: {
-      justifyContent: 'center',
-      alignItems: 'flex-start',
+      justifyContent: "center",
+      alignItems: "flex-start",
       // paddingTop: moderateScaleVertical(12),
       paddingBottom: moderateScaleVertical(12),
       paddingLeft: moderateScaleVertical(12),
     },
-    imgSmall: { height: '100%', width: '100%', borderRadius: 4 },
+    imgSmall: { height: "100%", width: "100%", borderRadius: 4 },
     imgContainer: {
       height: moderateScaleVertical(128),
       width: width * 0.5 - moderateScale(12),
@@ -53,19 +55,19 @@ export default ({ themeColors, fontFamily }) => {
     imgOverlay: {
       ...StyleSheet.absoluteFillObject,
       borderRadius: 4,
-      backgroundColor: 'rgba(0,0,0,0.3)',
+      backgroundColor: "rgba(0,0,0,0.3)",
     },
     blurContainer: {
-      position: 'absolute',
+      position: "absolute",
       left: moderateScale(115),
       bottom: 10,
-      alignItems: 'center',
-      justifyContent: 'center',
+      alignItems: "center",
+      justifyContent: "center",
       right: moderateScale(115),
       // backgroundColor: 'rgba(255,255,255,.35)',
       borderRadius: moderateScaleVertical(15),
       height: moderateScaleVertical(30),
-      overflow: 'hidden',
+      overflow: "hidden",
     },
     txt: {
       color: colors.white,
@@ -73,9 +75,9 @@ export default ({ themeColors, fontFamily }) => {
       opacity: 0.9,
     },
     absolute: {
-      position: 'absolute',
-      alignItems: 'center',
-      justifyContent: 'center',
+      position: "absolute",
+      alignItems: "center",
+      justifyContent: "center",
       height: moderateScaleVertical(30),
       top: 0,
       left: 0,
@@ -84,17 +86,17 @@ export default ({ themeColors, fontFamily }) => {
       borderRadius: moderateScaleVertical(15),
     },
     columnBox: {
-      flexDirection: 'row',
-      flexWrap: 'wrap',
+      flexDirection: "row",
+      flexWrap: "wrap",
       marginHorizontal: moderateScale(8),
-      justifyContent: 'space-between',
+      justifyContent: "space-between",
       marginTop: moderateScaleVertical(8),
     },
     verticalRectBox: {
       marginHorizontal: moderateScale(8),
       marginTop: moderateScale(8),
-      flexDirection: 'row',
-      justifyContent: 'space-between',
+      flexDirection: "row",
+      justifyContent: "space-between",
     },
     rectangleBox: {
       height: width * 0.32,
@@ -105,21 +107,21 @@ export default ({ themeColors, fontFamily }) => {
       borderRadius: 4,
     },
     cardViewStyle: {
-      alignItems: 'center',
+      alignItems: "center",
       height: 180,
       width: width - 20,
       marginHorizontal: moderateScale(10),
       // marginRight: 20
     },
     searchBarLogo: {
-      justifyContent: 'center',
+      justifyContent: "center",
       // flex: 0,
-      alignItems: 'flex-end',
+      alignItems: "flex-end",
       // paddingTop: moderateScaleVertical(12),
       paddingBottom: moderateScaleVertical(12),
       paddingRight: moderateScaleVertical(12),
-      flexDirection: 'row',
-      alignItems: 'center',
+      flexDirection: "row",
+      alignItems: "center",
     },
     address: {
       paddingLeft: 2,
@@ -128,7 +130,7 @@ export default ({ themeColors, fontFamily }) => {
       fontFamily: fontFamily.regular,
       color: colors.blackOpacity66,
       fontSize: textScale(12),
-      textAlign: 'left',
+      textAlign: "left",
     },
     addressTitle: {
       paddingLeft: 2,
@@ -137,14 +139,14 @@ export default ({ themeColors, fontFamily }) => {
       fontFamily: fontFamily.regular,
       color: colors.black,
       fontSize: textScale(13),
-      textAlign: 'left',
+      textAlign: "left",
     },
 
     mainView: {
       flex: 1,
     },
     sheetContent: {
-      height: '100%',
+      height: "100%",
       backgroundColor: colors.white,
     },
     header: {
@@ -154,7 +156,7 @@ export default ({ themeColors, fontFamily }) => {
       borderTopRightRadius: 20,
     },
     panelHeader: {
-      alignItems: 'center',
+      alignItems: "center",
     },
     panelHandle: {
       width: moderateScale(45),
@@ -167,8 +169,8 @@ export default ({ themeColors, fontFamily }) => {
     container: {
       height: moderateScale(height / 2),
       width: width,
-      justifyContent: 'center',
-      alignItems: 'center',
+      justifyContent: "center",
+      alignItems: "center",
     },
     circularView: {
       height: moderateScale(width / 3.8),
@@ -176,20 +178,20 @@ export default ({ themeColors, fontFamily }) => {
       borderWidth: 10,
       borderColor: colors.borderColorc,
       borderRadius: moderateScale(width / 7.5),
-      alignItems: 'center',
-      justifyContent: 'center',
+      alignItems: "center",
+      justifyContent: "center",
     },
     categoryText: {
       color: colors.textGreyH,
       fontSize: textScale(10),
     },
     circularListCenterImage: {
-      position: 'absolute',
+      position: "absolute",
     },
 
     container1: {
-      justifyContent: 'center',
-      alignItems: 'center',
+      justifyContent: "center",
+      alignItems: "center",
     },
     circularView: {
       height: moderateScale(width / 4),
@@ -197,13 +199,13 @@ export default ({ themeColors, fontFamily }) => {
       borderWidth: 5,
       borderColor: colors.borderColorc,
       borderRadius: moderateScale(width / 8),
-      alignItems: 'center',
-      justifyContent: 'center',
+      alignItems: "center",
+      justifyContent: "center",
     },
     categoryText: {
       color: colors.textGreyH,
       fontSize: textScale(9),
-      textAlign: 'left',
+      textAlign: "left",
     },
     circularListImage: { height: moderateScale(40), width: moderateScale(40) },
     applyPromoBtn: {
@@ -214,9 +216,9 @@ export default ({ themeColors, fontFamily }) => {
       paddingVertical: moderateScaleVertical(15),
       paddingHorizontal: moderateScaleVertical(10),
       marginVertical: moderateScaleVertical(20),
-      flexDirection: 'row',
-      justifyContent: 'center',
-      alignItems: 'center',
+      flexDirection: "row",
+      justifyContent: "center",
+      alignItems: "center",
     },
     nearVendorTxt: {
       fontFamily: fontFamily.bold,
@@ -240,7 +242,7 @@ export default ({ themeColors, fontFamily }) => {
       fontSize: textScale(17),
       marginTop: moderateScale(15),
       marginHorizontal: moderateScale(6),
-      textAlign: 'left',
+      textAlign: "left",
     },
     modalMainViewContainer: {
       backgroundColor: colors.white,
@@ -249,15 +251,15 @@ export default ({ themeColors, fontFamily }) => {
       maxHeight: height - width / 2,
       minHeight: height / 4,
       paddingHorizontal: moderateScale(10),
-      justifyContent: 'center',
+      justifyContent: "center",
     },
 
     headerContainer: {
-      flexDirection: 'row',
-      justifyContent: 'space-between',
+      flexDirection: "row",
+      justifyContent: "space-between",
       paddingHorizontal: moderateScale(15),
       marginTop: moderateScale(5),
-      alignItems: 'center',
+      alignItems: "center",
       // borderBottomWidth: 0.8,
       paddingBottom: moderateScale(5),
     },
@@ -265,7 +267,7 @@ export default ({ themeColors, fontFamily }) => {
       height: moderateScale(18),
       width: moderateScale(18),
       tintColor: themeColors.primary_color,
-      marginRight: moderateScale(2)
+      marginRight: moderateScale(2),
     },
     locationTxt: {
       paddingLeft: 5,
@@ -273,7 +275,7 @@ export default ({ themeColors, fontFamily }) => {
       fontFamily: fontFamily.regular,
       color: colors.textGrey,
       fontSize: textScale(12),
-      textAlign: 'left',
+      textAlign: "left",
     },
     deliveryIcon: {
       width: moderateScale(18),
@@ -284,7 +286,7 @@ export default ({ themeColors, fontFamily }) => {
       fontFamily: fontFamily.regular,
       color: themeColors.primary_color,
       marginHorizontal: moderateScale(3),
-      textAlign: 'left',
+      textAlign: "left",
       fontSize: textScale(12),
     },
     customDropDownIcon: {
@@ -294,7 +296,7 @@ export default ({ themeColors, fontFamily }) => {
       marginTop: moderateScaleVertical(3),
     },
     closeButton: {
-      alignSelf: 'center',
+      alignSelf: "center",
       height: moderateScaleVertical(30),
       marginBottom: moderateScale(15),
     },
@@ -303,20 +305,20 @@ export default ({ themeColors, fontFamily }) => {
       width: moderateScale(35),
     },
     searchBar: {
-      flexDirection: 'row',
+      flexDirection: "row",
       height: moderateScaleVertical(50),
       backgroundColor: colors.greyNew,
       borderRadius: moderateScale(15),
       paddingHorizontal: moderateScale(15),
-      alignItems: 'center',
-      justifyContent: 'space-between',
+      alignItems: "center",
+      justifyContent: "space-between",
       marginHorizontal: moderateScale(15),
       marginVertical: moderateScale(13),
     },
     exploreStoresTxt: {
       fontFamily: fontFamily.bold,
       fontSize: textScale(14),
-      textAlign: 'left',
+      textAlign: "left",
     },
     dotStyle: {
       height: 6,
@@ -331,10 +333,10 @@ export default ({ themeColors, fontFamily }) => {
       marginLeft: -8,
     },
     blurView: {
-      position: 'absolute',
-      alignItems: 'center',
-      justifyContent: 'center',
-      height: '100%',
+      position: "absolute",
+      alignItems: "center",
+      justifyContent: "center",
+      height: "100%",
       top: 0,
       left: 0,
       bottom: 0,
@@ -343,9 +345,9 @@ export default ({ themeColors, fontFamily }) => {
     },
 
     blurViewHome: {
-      position: 'absolute',
-      alignItems: 'center',
-      justifyContent: 'center',
+      position: "absolute",
+      alignItems: "center",
+      justifyContent: "center",
       top: 0,
       left: 0,
       bottom: 0,
@@ -354,10 +356,10 @@ export default ({ themeColors, fontFamily }) => {
     toolTipStyle: {
       height: moderateScale(8),
       backgroundColor: themeColors.primary_color,
-      alignItems: 'center',
+      alignItems: "center",
       width: moderateScale(30),
       borderRadius: moderateScale(10),
-      alignSelf: 'center',
+      alignSelf: "center",
       marginVertical: moderateScale(10),
     },
     viewAllText: {
@@ -366,28 +368,28 @@ export default ({ themeColors, fontFamily }) => {
       fontSize: textScale(12),
     },
     viewAllVeiw: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'space-between',
+      flexDirection: "row",
+      alignItems: "center",
+      justifyContent: "space-between",
       marginHorizontal: moderateScale(16),
       marginVertical: moderateScaleVertical(15),
     },
     menuView: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'center',
+      flexDirection: "row",
+      alignItems: "center",
+      justifyContent: "center",
       borderRadius: moderateScale(4),
       borderWidth: 0.3,
       borderColor: colors.textGreyB,
       padding: moderateScale(6),
     },
     hdrRatingTxtView: {
-      flexDirection: 'row',
-      alignItems: 'center',
+      flexDirection: "row",
+      alignItems: "center",
       backgroundColor: colors.green,
       paddingVertical: moderateScale(2),
       paddingHorizontal: moderateScale(4),
-      alignSelf: 'flex-start',
+      alignSelf: "flex-start",
       borderRadius: moderateScale(2),
       marginTop: moderateScaleVertical(16),
     },
@@ -395,7 +397,7 @@ export default ({ themeColors, fontFamily }) => {
       // color: colors.yellowC,
       // fontSize: textScale(11),
       fontFamily: fontFamily.medium,
-      textAlign: 'left',
+      textAlign: "left",
       color: colors.white,
       fontSize: textScale(9),
     },
@@ -425,20 +427,20 @@ export default ({ themeColors, fontFamily }) => {
     },
     modal: {
       margin: 0,
-      alignItems: 'center',
+      alignItems: "center",
     },
     modalContainer: {
-      backgroundColor: '#fff',
+      backgroundColor: "#fff",
       paddingHorizontal: 16,
       paddingTop: 20,
       paddingBottom: 40,
-      alignItems: 'center',
+      alignItems: "center",
       width: width - 50,
       borderRadius: 12,
     },
     horizontalLine: {
       marginVertical: moderateScaleVertical(15),
-      width: '70%',
+      width: "70%",
     },
     ageModalText: {
       fontFamily: fontFamily.bold,
@@ -448,10 +450,10 @@ export default ({ themeColors, fontFamily }) => {
       marginBottom: moderateScale(10),
       fontFamily: fontFamily.regular,
       fontSize: textScale(14),
-      textAlign: 'center',
+      textAlign: "center",
     },
     takeMeOutStyle: {
-      textAlign: 'center',
+      textAlign: "center",
       color: themeColors.primary_color,
       fontFamily: fontFamily.regular,
       fontSize: textScale(12),
@@ -460,12 +462,12 @@ export default ({ themeColors, fontFamily }) => {
     innerAgeModaleView: {
       paddingVertical: moderateScaleVertical(15),
       paddingHorizontal: moderateScale(10),
-      backgroundColor: 'white',
+      backgroundColor: "white",
       borderRadius: 15,
       width: width / 1.2,
       minHeight: moderateScaleVertical(150),
-      alignItems: 'center',
-      shadowColor: '#000',
+      alignItems: "center",
+      shadowColor: "#000",
       shadowOffset: {
         width: 0,
         height: 2,
@@ -475,12 +477,12 @@ export default ({ themeColors, fontFamily }) => {
       elevation: 5,
     },
     searchBarView: {
-      flexDirection: 'row',
+      flexDirection: "row",
       paddingHorizontal: moderateScale(16),
       height: moderateScaleVertical(48),
       backgroundColor: colors.lightGray,
-      alignItems: 'center',
-      justifyContent: 'space-between',
+      alignItems: "center",
+      justifyContent: "space-between",
       borderRadius: moderateScale(10),
       marginHorizontal: moderateScale(10),
       marginVertical: moderateScaleVertical(10),

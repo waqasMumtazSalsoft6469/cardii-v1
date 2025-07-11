@@ -1506,7 +1506,7 @@ export default function Home({route, navigation}) {
           onClose={_stopOrderModalClose}
         />
       )}
-           <Modal onBackdropPress={() => setIsPriceTypeModal(false)} isVisible={ispriceTypeModal}>
+      <Modal onBackdropPress={() => setIsPriceTypeModal(false)} isVisible={ispriceTypeModal}>
         <View style={{ height: moderateScaleVertical(170), backgroundColor: colors.white, borderRadius: moderateScale(12), padding: moderateScale(12) }}>
           <Text style={{
             fontFamily: fontFamily?.bold,

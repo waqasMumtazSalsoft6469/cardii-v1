@@ -17,6 +17,7 @@ import ForgotPassword from '../Screens/ForgotPassword/ForgotPassword';
 import navigationStrings from './navigationStrings';
 
 export default function (Stack, appStyle, appData) {
+  console.log('AuthStack appStyle ***********************************************************************************', appStyle);
   return (
     <>
       <Stack.Screen

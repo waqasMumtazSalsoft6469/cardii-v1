@@ -1,5 +1,6 @@
 export default {
   themeColor: '#41A2E6',
+  secondaryColor:'#037AE8',
   themeColor2: '#31BD8F',
   btnABlue: '#61A0F2',
   btnBBlue: '#32A3E0',

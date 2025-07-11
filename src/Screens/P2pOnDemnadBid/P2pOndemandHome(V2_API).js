@@ -929,7 +929,8 @@ export default function Home({ route, navigation }) {
     <WrapperContainer
       statusBarColor={colors.white}
       bgColor={isDarkMode ? MyDarkTheme.colors.background : colors.white}
-      isLoading={searchDataLoader}>
+      isLoading={searchDataLoader}
+      >
       <>{renderHomeScreen()}</>
       <Modal
         visible={isLocationModal}

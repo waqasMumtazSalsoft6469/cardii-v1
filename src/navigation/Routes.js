@@ -94,6 +94,8 @@ export default function Routes() {
   };
 
   const businessType = appStyle?.homePageLayout;
+  //const businessType = 10;
+
   return (
     <NavigationContainer ref={navigationRef}>
       <Stack.Navigator screenOptions={{headerShown: false}}>
@@ -110,6 +112,9 @@ export default function Routes() {
           />
         ) : appSessionInfo == 'guest_login' || !!userData?.auth_token ? (
           <React.Fragment>
+            {console.log('dineInType', dineInType)}
+            {console.log('businessType', businessType)}
+            {console.log('appStyle', appStyle)}
             {businessType === 10 ? (
               <Stack.Screen
                 name={navigationStrings.DRAWER_ROUTES}
