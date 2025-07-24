@@ -2,7 +2,7 @@ import {
   createDrawerNavigator
 } from '@react-navigation/drawer';
 import React from 'react';
-import { Image } from 'react-native';
+import { Image, Dimensions } from 'react-native';
 import { useSelector } from 'react-redux';
 import CustomDrawerContent from '../Components/CustomDrawerContent';
 import imagePath from '../constants/imagePath';
@@ -17,15 +17,19 @@ import TabRoutesEcommerce from './TabRoutesEcommerce';
 import TabRoutesP2p from './TabRoutesP2p';
 import TaxiTabRoutes from './TaxiTabRoutes';
 import { WebLinks } from '../Screens';
+import TabRoutesOnDemandP2p from './TabRoutesP2pOnDemand';
+// import CustomP2pOnDemandDrawer from '../Components/CustomP2pOnDemandDrawer';
+
+const { width } = Dimensions.get('window');
 
 const Drawer = createDrawerNavigator();
-export default function DrawerRoutes(props) {
+export default function DrawerP2pOnDemand(props) {
 
   const appMainData = useSelector((state) => state?.home?.appMainData);
   const {appStyle, appData } = useSelector((state) => state?.initBoot); 
   const businessType = appStyle?.homePageLayout;
 
-  console.log("Business Type: *********>>>>>>>>>>>>>>>>>>>>>>>>>>>>", businessType);
+  console.log("<<<<<<<<<<<<<<<<<<<<<<<<********************* Business Type: TabRoutesOnDemandP2p *********>>>>>>>>>>>>>>>>>>>>>>>>>>>>", businessType);
   
   const allCategory = appMainData?.categories;
   const checkForCeleb = appData?.profile?.preferences?.celebrity_check;
@@ -83,27 +87,18 @@ export default function DrawerRoutes(props) {
       backBehavior={'none'}
       drawerType={'front'}
       overlayColor={'rgba(0,0,0,0.6)'}
-      drawerContent={(props) => <CustomDrawerContent {...props} />}
-      screenOptions={{ headerShown: false }}
-      initialRouteName={businessType === 4
-        ? navigationStrings.TAXITABROUTES
-        : navigationStrings.TAB_ROUTES}
+      drawerContent={(props) => <CustomP2pOnDemandDrawer {...props} />}
+      screenOptions={{ drawerStyle: { width }, headerShown: false }}
+      initialRouteName={navigationStrings.MAINP2PTABS}
     >
 
       <Drawer.Screen
-        component={businessType === 4
-          ? TaxiTabRoutes : businessType === 8
-            ? TabRoutesP2p : businessType === 10
-              ? TabRoutesEcommerce : TabRoutes
-        }
-        name={
-          businessType === 4
-            ? navigationStrings.TAXITABROUTES
-            : navigationStrings.TAB_ROUTES
-        }
+        component={TabRoutesOnDemandP2p}
+        name={navigationStrings.MAINP2PTABS}
 
       />
-      <Drawer.Screen
+
+      {/* <Drawer.Screen
         component={CartStack}
         name={navigationStrings.CART}
       />
@@ -115,16 +110,9 @@ export default function DrawerRoutes(props) {
         options={{ headerShown: false}}
         
       />
-         {/* <Drawer.Screen
-        name={navigationStrings.CATEGORY}
-        component={Category}
-        options={{ headerShown: false}}
-        
-      /> */}
       {brandTab}
-      {celebTab}
+      {celebTab} */}
 
     </Drawer.Navigator>
   );
 }
-

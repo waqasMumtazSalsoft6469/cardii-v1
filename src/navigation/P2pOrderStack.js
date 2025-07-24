@@ -6,6 +6,7 @@ import P2pOndemandMyOrders from '../Screens/P2pOnDemnadBid/P2pOndemandMyOrders/P
 import navigationStrings from './navigationStrings';
 
 const Stack = createNativeStackNavigator();
+
 export default function ({ navigation }) {
     const { appData, appStyle } = useSelector((state) => state?.initBoot);
 

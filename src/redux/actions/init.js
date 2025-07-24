@@ -316,3 +316,10 @@ export const deleteSearchResults = () => {
     payload: {},
   });
 };
+
+export const handleMenu = (flag) => {
+  dispatch({
+    type: types.MENU,
+    payload: flag,
+  })
+}

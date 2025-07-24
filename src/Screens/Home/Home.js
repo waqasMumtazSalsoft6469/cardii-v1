@@ -1684,6 +1684,7 @@ export default function Home({ route, navigation }) {
           </View>
         </View>
       </Modal>
+      
     </WrapperContainer>
   );
 }

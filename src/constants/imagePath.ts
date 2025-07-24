@@ -304,7 +304,7 @@ export default {
   settings1: require('../assets/images/RoyoorderNewImages/ic_settings.png'),
   links: require('../assets/images/RoyoorderNewImages/ic_links.png'),
   myOrder2: require('../assets/images/RoyoorderNewImages/ic_orders.png'),
-  loyalty: require('../assets/images/RoyoorderNewImages/ic_loyalty.png'),
+  loyalty2: require('../assets/images/RoyoorderNewImages/ic_loyalty.png'),
   wallet3: require('../assets/images/RoyoorderNewImages/ic_wallet.png'),
   mystores2: require('../assets/images/RoyoorderNewImages/ic_stores.png'),
   subscription: require('../assets/images/RoyoorderNewImages/ic_sub.png'),
@@ -550,7 +550,7 @@ export default {
   post: require('../assets/images/ic_post.png'),
   post_active: require('../assets/images/ic_post_active.png'),
 
-  //p2p
+  //p2p images
   icP2pMore: require('../assets/images/p2p/ic_more.png'),
   icCallP2p: require('../assets/images/p2p/ic_call_p2p.png'),
   icAddPostP2p: require('../assets/images/p2p/ic_add_post.png'),
@@ -564,12 +564,33 @@ export default {
   icChatP2pInActive: require('../assets/images/p2p/ic_chat_new1.png'),
   icDefaultImg: require('../assets/images/p2p/default_image.jpg'),
   icMyPosts: require('../assets/images/p2p/ic_my_posts.png'),
-  icTapToCopy: require('../assets/images/p2p/ic_tap_to_copy.png'),
+  icTapToCopy: require('../assets/images/p2p/ic_tap_to_copy.png'),  
   icAddPostActive: require('../assets/images/p2p/ic_add.png'),
   icAddPostInactive: require('../assets/images/p2p/ic_add2.png'),
   icAwaitingApproval: require('../assets/images/p2p/ic_waiting_apporval.gif'),
   icApprovalRejected: require('../assets/images/p2p/ic_approval_rejected.gif'),
-  //
+  vehicle: require('../assets/images/p2p/ambulance.png'),
+  walletp2p: require('../assets/images/p2p/account_balance_wallet.png'),
+  shortCut: require('../assets/images/p2p/article_shortcut.png'),
+  favourite: require('../assets/images/p2p/favorite.png'),
+  group: require('../assets/images/p2p/Group.png'),
+  loyalty:require('../assets/images/p2p/loyalty.png'),
+  logoutp2p: require('../assets/images/p2p/logout.png'),
+  vectorHome: require('../assets/images/p2p/vector-home.png'),
+  vectorSearch: require('../assets/images/p2p/searchIcon.png'),
+  vectorCar: require('../assets/images/p2p/car-line.png'),
+  vectorProfile: require('../assets/images/p2p/profile.png'),
+  fillHome: require('../assets/images/p2p/fillHOme.png'),
+  fillSearch: require('../assets/images/p2p/fillSearch.png'),
+  fillCar: require('../assets/images/p2p/fillCar.png'),
+  fillProfile: require('../assets/images/p2p/fillProfile.png'),
+  notificaton: require('../assets/images/p2p/notification_new.png'),
+  ferrari: require('../assets/images/p2p/ferrari.png'),
+  sr_car: require('../assets/images/p2p/sr_car.png'),
+  sr_driver: require('../assets/images/p2p/sr_driver.png'),
+  sr_truck: require('../assets/images/p2p/sr_truck.png'),
+  sr_chuffer: require('../assets/images/p2p/sr_chuffer.png'),
+  //end
 
   icAirport: require('../assets/images/ic_airport.png'),
   icHotel: require('../assets/images/ic_hotel.png'),
@@ -830,5 +851,7 @@ export default {
   percentage:require('../assets/images/OnDemand/percentageOD.png'),
   cashOD:require('../assets/images/OnDemand/cashOD.png'),
   servicetype:require('../assets/images/servicetype.png'),
-  instructionIcon:require('../assets/images/instructionIcon.png')
+  instructionIcon:require('../assets/images/instructionIcon.png'),
+  handHi:require('../assets/images/handHi.png'),
+  filter2:require('../assets/images/filter.png'),
 };

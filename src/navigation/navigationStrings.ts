@@ -77,7 +77,11 @@ export default {
   TRACKORDER: 'trackOrder',
   WEBVIEWSCREEN: 'webViewScreen',
   SUBSCRIPTION: 'subscriptions',
-  LOYALTY: 'loyalty',
+  MYSUBSCRIPTIONS: 'mySubscriptions',
+  LOYALTY: 'loyalty', 
+  MYLOYALTY: 'myLoyalty',
+  MYWALLET: 'myWallet',
+  REFER_EARN: 'referAndEarn',
   CART2: 'orders',
   RETURNORDER: 'returnOrder',
   HOMESCREENTAXI: 'homeScreenTaxi',
@@ -89,7 +93,8 @@ export default {
   PICKUPTAXIORDERDETAILS: 'PickupTaxiOrderDetails',
   PICKUPORDERDETAIL2: 'pickOrderDetail2',
   PRODUCTWITHCATEGORY: 'productWithCategory',
-
+  DRAWER_P2P_ON_DEMAND:'drawerP2pOnDemand',
+  MAINP2PTABS: 'mainP2PTabs',
   // royo order
 
   ROYO_VENDOR_HOME: 'royoHome',
@@ -185,7 +190,9 @@ export default {
   LIVESS: 'Livees',
   SAVED_PAYMENT_CARDS:"savedPaymentCards",
   // car rental stacks
+  CAR_RENTAL_STACK: 'carRentalStack',
   CAR_RENTAL_HOME:'CarRentalHome',
+  CAR_RENTAL_LIST: 'RentalCarsList',
   AVAILABLE_CARS:'AvailableCar',
   REVIEW_BOOKING:'ReviewBooking',
   ALL_VENDOR_ON_DEMAND:"allVendorOnDemand",

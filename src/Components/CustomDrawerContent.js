@@ -18,12 +18,9 @@ import { getColorSchema } from '../utils/utils';
 import ButtonComponent from './ButtonComponent';
 
 
-
-
 const CustomDrawerContent = (props) => {
 
-
-  const navigation = useNavigation()
+  const navigation = useNavigation();
   const userData = useSelector(state => state?.auth?.userData || null)
   const { appStyle, themeColors } = useSelector((state) => state?.initBoot);
   const fontFamily = appStyle?.fontSizeData;

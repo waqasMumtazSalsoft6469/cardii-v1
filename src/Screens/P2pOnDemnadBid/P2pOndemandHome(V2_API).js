@@ -1,8 +1,8 @@
-import { WINDOW_HEIGHT, WINDOW_WIDTH } from '@gorhom/bottom-sheet';
-import Voice from '@react-native-voice/voice';
-import { useFocusEffect, useIsFocused } from '@react-navigation/native';
-import { isEmpty } from 'lodash';
-import React, { useCallback, useEffect, useState } from 'react';
+import { WINDOW_HEIGHT, WINDOW_WIDTH } from "@gorhom/bottom-sheet";
+import Voice from "@react-native-voice/voice";
+import { useFocusEffect, useIsFocused } from "@react-navigation/native";
+import { isEmpty } from "lodash";
+import React, { useCallback, useEffect, useState, useRef } from "react";
 import {
   Alert,
   BackHandler,
@@ -10,49 +10,60 @@ import {
   Linking,
   Modal,
   Platform,
+  StyleSheet,
   Text,
   TouchableOpacity,
-  View
-} from 'react-native';
-import AppLink from 'react-native-app-link';
-import DeviceInfo from 'react-native-device-info';
-import Geocoder from 'react-native-geocoding';
-import { enableFreeze } from 'react-native-screens';
-import { useSelector } from 'react-redux';
-import GradientButton from '../../Components/GradientButton';
-import IconTextRow from '../../Components/IconTextRow';
-import OoryksHeader from '../../Components/OoryksHeader';
-import SelectSearchFromMap from '../../Components/SelectSearchFromMap';
-import WrapperContainer from '../../Components/WrapperContainer';
-import imagePath from '../../constants/imagePath';
-import strings from '../../constants/lang';
-import staticStrings from '../../constants/staticStrings';
-import navigationStrings from '../../navigation/navigationStrings';
-import actions from '../../redux/actions';
-import colors from '../../styles/colors';
+  View,
+  StatusBar,
+  ScrollView,
+  Animated,
+  Dimensions
+} from "react-native";
+import AppLink from "react-native-app-link";
+import DeviceInfo from "react-native-device-info";
+import Geocoder from "react-native-geocoding";
+import { enableFreeze } from "react-native-screens";
+import { useSelector } from "react-redux";
+import GradientButton from "../../Components/GradientButton";
+import IconTextRow from "../../Components/IconTextRow";
+import OoryksHeader from "../../Components/OoryksHeader";
+import SelectSearchFromMap from "../../Components/SelectSearchFromMap";
+import WrapperContainer from "../../Components/WrapperContainer";
+import imagePath from "../../constants/imagePath";
+import strings from "../../constants/lang";
+import staticStrings from "../../constants/staticStrings";
+import navigationStrings from "../../navigation/navigationStrings";
+import actions from "../../redux/actions";
+import colors from "../../styles/colors";
 import {
   moderateScale,
   moderateScaleVertical,
   textScale,
-} from '../../styles/responsiveSize';
-import { MyDarkTheme } from '../../styles/theme';
-import { shortCodes } from '../../utils/constants/DynamicAppKeys';
+} from "../../styles/responsiveSize";
+import { MyDarkTheme } from "../../styles/theme";
+import { shortCodes } from "../../utils/constants/DynamicAppKeys";
 import {
   androidBackButtonHandler,
   getCurrentLocation,
-  showError
-} from '../../utils/helperFunctions';
-import { openAppSetting } from '../../utils/openNativeApp';
+  showError,
+} from "../../utils/helperFunctions";
+import { openAppSetting } from "../../utils/openNativeApp";
 import {
   chekLocationPermission,
   onlyCheckLocationPermission,
-} from '../../utils/permissions';
-import socketServices from '../../utils/scoketService';
-import { getColorSchema } from '../../utils/utils';
-import DashBoardFiveV2Api from './DashBoardParts/DashBoardFiveV2Api';
-import DashBoardHeaderFive from './DashBoardParts/DashBoardHeaderFive';
+} from "../../utils/permissions";
+import socketServices from "../../utils/scoketService";
+import { getColorSchema } from "../../utils/utils";
+import DashBoardFiveV2Api from "./DashBoardParts/DashBoardFiveV2Api";
+import DashBoardHeaderFive from "./DashBoardParts/DashBoardHeaderFive";
+import { BlurView } from "@react-native-community/blur";
+import { SafeAreaView } from "react-native-safe-area-context";
+import CustomP2pOnDemandContent from "../../Components/CustomP2pOnDemandContent";
+import CustomDrawerModal from "../../Components/CustomDrawerModal";
 
 enableFreeze(true);
+
+const SCREEN_WIDTH = Dimensions.get('window').width;
 
 export default function Home({ route, navigation }) {
   const paramData = route?.params;
@@ -64,20 +75,24 @@ export default function Home({ route, navigation }) {
     isDineInSelected,
     themeColor,
     themeToggle,
-
-  } = useSelector(state => state?.initBoot);
-  const { location, appMainData, dineInType, isLocationSearched, refreshType,isSubscription } =
-    useSelector(state => state?.home);
+  } = useSelector((state) => state?.initBoot);
+  const {
+    location,
+    appMainData,
+    dineInType,
+    isLocationSearched,
+    refreshType,
+    isSubscription,
+  } = useSelector((state) => state?.home);
 
   const fontFamily = appStyle?.fontSizeData;
 
   const isFocused = useIsFocused();
-  const { cartItemCount } = useSelector(state => state?.cart);
+  const { cartItemCount } = useSelector((state) => state?.cart);
 
-
-  const { userData } = useSelector(state => state?.auth);
+  const { userData } = useSelector((state) => state?.auth);
   const { pendingNotifications } = useSelector(
-    state => state?.pendingNotifications,
+    (state) => state?.pendingNotifications
   );
 
   const darkthemeusingDevice = getColorSchema();
@@ -91,15 +106,17 @@ export default function Home({ route, navigation }) {
   const [selectedHomeCategory, setSelectedHomeCategory] = useState({});
   const [isLocationModal, setisLocationModal] = useState(false);
   const [isSelectViaMap, setisSelectViaMap] = useState(false);
+  
+  const modalRef = useRef();
 
   const [state, setState] = useState({
     isLoading: true,
     isRefreshing: false,
-    selectedTabType: '',
+    selectedTabType: "",
     updateTime: 0,
     isDineInSelected: false,
     pageActive: 1,
-    currentLocation: '',
+    currentLocation: "",
     saveAllUserAddress: null,
     isLoadingB: false,
     searchDataLoader: false,
@@ -150,11 +167,11 @@ export default function Home({ route, navigation }) {
   useFocusEffect(
     useCallback(() => {
       const backHandler = BackHandler.addEventListener(
-        'hardwareBackPress',
-        androidBackButtonHandler,
+        "hardwareBackPress",
+        androidBackButtonHandler
       );
       return () => backHandler.remove();
-    }, []),
+    }, [])
   );
   useEffect(() => {
     updateState({ updatedData: appMainData?.categories });
@@ -180,7 +197,7 @@ export default function Home({ route, navigation }) {
       return () => {
         Voice.destroy().then(Voice.removeAllListeners);
       };
-    }, []),
+    }, [])
   );
 
   useFocusEffect(
@@ -189,7 +206,7 @@ export default function Home({ route, navigation }) {
         getAllTempOrders();
         getUserProfileData();
       }
-    }, []),
+    }, [])
   );
 
   const getUserProfileData = () => {
@@ -200,10 +217,10 @@ export default function Home({ route, navigation }) {
           code: appData?.profile?.code,
           currency: currencies?.primary_currency?.id,
           language: languages?.primary_language?.id,
-        },
+        }
       )
-      .then(res => {
-        console.log('get user profile', res);
+      .then((res) => {
+        console.log("get user profile", res);
 
         actions.updateProfile({ ...userData, ...res?.data });
       })
@@ -215,7 +232,7 @@ export default function Home({ route, navigation }) {
   }, []);
 
   useEffect(() => {
-    if (refreshType == 'Y') {
+    if (refreshType == "Y") {
       homeData();
     }
   }, [refreshType]);
@@ -227,13 +244,13 @@ export default function Home({ route, navigation }) {
   // );
 
   const getLocationPermissionStatus = () => {
-    if (location?.latitude === '') {
+    if (location?.latitude === "") {
       onlyCheckLocationPermission()
-        .then(res => {
+        .then((res) => {
           setisLocationModal(false);
           onGetCurrentLoc();
         })
-        .catch(err => {
+        .catch((err) => {
           setisLocationModal(true);
           homeData();
         });
@@ -244,39 +261,39 @@ export default function Home({ route, navigation }) {
 
   const checkAndGetLocation = (isOpen = false) => {
     chekLocationPermission(true)
-      .then(result => {
-        if (result !== 'goback' && result == 'granted') {
+      .then((result) => {
+        if (result !== "goback" && result == "granted") {
           onGetCurrentLoc();
-        } else if (result === 'blocked') {
+        } else if (result === "blocked") {
           Alert.alert(
-            '',
-            'Location Permission disabled, allow it from settings',
+            "",
+            "Location Permission disabled, allow it from settings",
             [
               {
                 text: strings.CANCEL,
-                onPress: () => console.log('Cancel Pressed'),
+                onPress: () => console.log("Cancel Pressed"),
               },
               {
                 text: strings.CONFIRM,
                 onPress: openAppSetting,
               },
-            ],
+            ]
           );
         } else {
           homeData(null);
         }
       })
-      .catch(error => {
-        console.log('error while accessing location', error);
-        console.log('api hit without lat lng');
+      .catch((error) => {
+        console.log("error while accessing location", error);
+        console.log("api hit without lat lng");
         homeData();
         return;
       });
   };
 
   const onGetCurrentLoc = () => {
-    getCurrentLocation('home')
-      .then(curLoc => {
+    getCurrentLocation("home")
+      .then((curLoc) => {
         setisLocationModal(false);
         updateState({
           curLatLong: curLoc,
@@ -285,14 +302,21 @@ export default function Home({ route, navigation }) {
         homeData(curLoc);
         return;
       })
-      .catch(err => {
+      .catch((err) => {
         homeData();
         return;
       });
   };
 
   useEffect(() => {
-    Geocoder.init(Platform.OS=='ios'?profile?.preferences?.map_key_for_ios_app||profile?.preferences?.map_key:profile?.preferences?.map_key_for_app|| profile?.preferences?.map_key, { language: 'en' }); // set the language
+    Geocoder.init(
+      Platform.OS == "ios"
+        ? profile?.preferences?.map_key_for_ios_app ||
+            profile?.preferences?.map_key
+        : profile?.preferences?.map_key_for_app ||
+            profile?.preferences?.map_key,
+      { language: "en" }
+    ); // set the language
   }, []);
 
   const _getLocationFromParams = () => {
@@ -317,18 +341,18 @@ export default function Home({ route, navigation }) {
     }
   };
 
-  const checkCartWithLatLang = res => {
-    Alert.alert('', strings.THIS_WILL_REMOVE_CART, [
+  const checkCartWithLatLang = (res) => {
+    Alert.alert("", strings.THIS_WILL_REMOVE_CART, [
       {
         text: strings.CANCEL,
-        onPress: () => console.log('Cancel Pressed'),
+        onPress: () => console.log("Cancel Pressed"),
         // style: 'destructive',
       },
       { text: strings.CLEAR_CART2, onPress: () => clearCart(res) },
     ]);
   };
 
-  const clearCart = location => {
+  const clearCart = (location) => {
     updateLatLang(location);
     actions
       .clearCart(
@@ -338,21 +362,19 @@ export default function Home({ route, navigation }) {
           currency: currencies?.primary_currency?.id,
           language: languages?.primary_language?.id,
           systemuser: DeviceInfo.getUniqueId(),
-        },
+        }
       )
-      .then(res => {
+      .then((res) => {
         actions.cartItemQty(res);
         homeData(location);
       })
       .catch(errorMethod);
   };
 
-  const updateLatLang = res => {
+  const updateLatLang = (res) => {
     actions.locationData(res);
     homeData(res);
   };
-
-
 
   const getAllTempOrders = () => {
     actions
@@ -360,9 +382,9 @@ export default function Home({ route, navigation }) {
         {},
         {
           code: appData?.profile?.code,
-        },
+        }
       )
-      .then(res => {
+      .then((res) => {
         if (res && res?.data) {
           updateState({
             tempCartData: res?.data,
@@ -384,9 +406,9 @@ export default function Home({ route, navigation }) {
 
     if (!!locationData || !isEmpty(location)) {
       latlongObj = {
-        address: locationData?.address || location?.address || '',
-        latitude: locationData?.latitude || location?.latitude || '',
-        longitude: locationData?.longitude || location?.longitude || '',
+        address: locationData?.address || location?.address || "",
+        latitude: locationData?.latitude || location?.latitude || "",
+        longitude: locationData?.longitude || location?.longitude || "",
       };
     }
 
@@ -428,22 +450,22 @@ export default function Home({ route, navigation }) {
         currency: currencies?.primary_currency?.id,
         language: languages?.primary_language?.id,
       };
-      console.log('sending api data header', apiData, apiHeader);
-      console.log(JSON.stringify({ ...apiData, action: 2 }), "fasjdgjfikh")
+      console.log("sending api data header", apiData, apiHeader);
+      console.log(JSON.stringify({ ...apiData, action: 2 }), "fasjdgjfikh");
 
       actions
         .homeDataV2({ ...apiData, action: 2 }, apiHeader)
-        .then(async res => {
-          console.log('Home data++++++', res);
+        .then(async (res) => {
+          console.log("Home data++++++", res);
 
           updateState({ searchDataLoader: false });
           if (
             appData?.profile?.preferences?.is_hyperlocal &&
-            location?.latitude == '' &&
-            location?.longitude == ''
+            location?.latitude == "" &&
+            location?.longitude == ""
           ) {
             if (
-              typeof res?.data?.reqData == 'object' &&
+              typeof res?.data?.reqData == "object" &&
               res?.data?.reqData?.latitude &&
               res?.data?.reqData?.longitude
             ) {
@@ -468,8 +490,8 @@ export default function Home({ route, navigation }) {
   };
 
   //Error handling in screen
-  const errorMethod = error => {
-    console.log(error, 'erro>>>>>>errorerrorr');
+  const errorMethod = (error) => {
+    console.log(error, "erro>>>>>>errorerrorr");
     setLoadingAddons(false);
     updateState({
       isLoading: false,
@@ -483,47 +505,46 @@ export default function Home({ route, navigation }) {
     showError(error?.message || error?.error);
   };
 
-
   //update state
-  const updateState = data => setState(state => ({ ...state, ...data }));
+  const updateState = (data) => setState((state) => ({ ...state, ...data }));
 
   //Naviagtion to specific screen
   const moveToNewScreen =
     (screenName, data = {}) =>
-      () => {
-        navigation.navigate(screenName, { data });
-      };
+    () => {
+      navigation.navigate(screenName, { data });
+    };
 
   const openUber = () => {
-    let appName = 'Uber - Easy affordable trips';
-    let appStoreLocale = '';
-    let playStoreId = 'com.ubercab';
-    let appStoreId = '368677368';
-    AppLink.maybeOpenURL('uber://', {
+    let appName = "Uber - Easy affordable trips";
+    let appStoreLocale = "";
+    let playStoreId = "com.ubercab";
+    let appStoreId = "368677368";
+    AppLink.maybeOpenURL("uber://", {
       appName: appName,
       appStoreId: appStoreId,
       appStoreLocale: appStoreLocale,
       playStoreId: playStoreId,
     })
-      .then(res => { })
-      .catch(err => {
-        Linking.openURL('https://www.uber.com/in/en/');
-        console.log('errro raised', err);
+      .then((res) => {})
+      .catch((err) => {
+        Linking.openURL("https://www.uber.com/in/en/");
+        console.log("errro raised", err);
         // handle error
       });
   };
 
-  const onPressVendor = item => {
+  const onPressVendor = (item) => {
     if (item?.redirect_to == staticStrings.PICKUPANDDELIEVRY) {
       if (!!userData?.auth_token) {
         if (shortCodes.arenagrub == appData?.profile?.code) {
           openUber();
         } else {
-          item['pickup_taxi'] = true;
+          item["pickup_taxi"] = true;
           moveToNewScreen(navigationStrings.ADDADDRESS, item)();
         }
       } else {
-        actions.setAppSessionData('on_login');
+        actions.setAppSessionData("on_login");
       }
     } else if (!!item?.is_show_category) {
       moveToNewScreen(navigationStrings.VENDOR_DETAIL, {
@@ -543,7 +564,7 @@ export default function Home({ route, navigation }) {
   };
 
   //onPress Category
-  const onPressCategory = item => {
+  const onPressCategory = (item) => {
     if (
       item?.redirect_to == staticStrings.P2P ||
       item?.redirect_to == staticStrings.RENTAL_SERVICE
@@ -569,8 +590,8 @@ export default function Home({ route, navigation }) {
         id: item.id,
         vendor:
           item.redirect_to == staticStrings.ONDEMANDSERVICE ||
-            item.redirect_to == staticStrings.PRODUCT ||
-            item?.redirect_to == staticStrings.LAUNDRY
+          item.redirect_to == staticStrings.PRODUCT ||
+          item?.redirect_to == staticStrings.LAUNDRY
             ? false
             : true,
         name: item.name,
@@ -581,12 +602,12 @@ export default function Home({ route, navigation }) {
         if (shortCodes.arenagrub == appData?.profile?.code) {
           openUber();
         } else {
-          item['pickup_taxi'] = true;
+          item["pickup_taxi"] = true;
           // moveToNewScreen(navigationStrings.MULTISELECTCATEGORY, item)();
           moveToNewScreen(navigationStrings.ADDADDRESS, item)();
         }
       } else {
-        actions.setAppSessionData('on_login');
+        actions.setAppSessionData("on_login");
       }
     } else if (item.redirect_to == staticStrings.DISPATCHER) {
       // moveToNewScreen(navigationStrings.DELIVERY, item)();
@@ -600,24 +621,24 @@ export default function Home({ route, navigation }) {
     } else if (!item.is_show_category || item.is_show_category) {
       item?.is_show_category
         ? moveToNewScreen(navigationStrings.VENDOR_DETAIL, {
-          item,
-          rootProducts: true,
-          // categoryData: data,
-        })()
+            item,
+            rootProducts: true,
+            // categoryData: data,
+          })()
         : moveToNewScreen(navigationStrings.PRODUCT_LIST, {
-          id: item?.id,
-          vendor: true,
-          name: item?.name,
-          isVendorList: true,
-          fetchOffers: true,
-        })();
+            id: item?.id,
+            vendor: true,
+            name: item?.name,
+            isVendorList: true,
+            fetchOffers: true,
+          })();
 
       // moveToNewScreen(navigationStrings.VENDOR_DETAIL, {item})();
     }
   };
 
   //On Press banner
-  const bannerPress = data => {
+  const bannerPress = (data) => {
     let item = {};
     if (data?.redirect_id) {
       if (data?.redirect_to == staticStrings.VENDOR && data?.is_show_category) {
@@ -645,20 +666,20 @@ export default function Home({ route, navigation }) {
       if (data.redirect_to == staticStrings.VENDOR) {
         data?.is_show_category
           ? moveToNewScreen(navigationStrings.VENDOR_DETAIL, {
-            item,
-            rootProducts: true,
-            // categoryData: data,
-          })()
+              item,
+              rootProducts: true,
+              // categoryData: data,
+            })()
           : moveToNewScreen(navigationStrings.PRODUCT_LIST, {
-            id: data.redirect_id,
-            vendor: true,
-            name: data.redirect_name,
-            fetchOffers: true,
-          })();
+              id: data.redirect_id,
+              vendor: true,
+              name: data.redirect_name,
+              fetchOffers: true,
+            })();
       } else if (data.redirect_to == staticStrings.CATEGORY) {
         if (data?.category?.type?.title == staticStrings.VENDOR) {
           let dat2 = data;
-          dat2['id'] = data?.redirect_id;
+          dat2["id"] = data?.redirect_id;
           moveToNewScreen(navigationStrings.VENDOR, dat2)();
           return;
         } else {
@@ -717,13 +738,13 @@ export default function Home({ route, navigation }) {
         header,
         true,
         currencies?.primary_currency,
-        languages?.primary_language,
+        languages?.primary_language
       )
-      .then(res => {
-        console.log(res, 'initApp');
+      .then((res) => {
+        console.log(res, "initApp");
         updateState({ isRefreshing: false });
       })
-      .catch(error => {
+      .catch((error) => {
         updateState({ isRefreshing: false });
       });
   };
@@ -735,7 +756,7 @@ export default function Home({ route, navigation }) {
     homeData();
   };
 
-  const selcetedToggle = type => {
+  const selcetedToggle = (type) => {
     actions.dineInData(type);
 
     updateState({
@@ -756,7 +777,7 @@ export default function Home({ route, navigation }) {
     }
   };
 
-  const onVendorFilterSeletion = selectedFilter => {
+  const onVendorFilterSeletion = (selectedFilter) => {
     updateState({
       isLoadingB: true,
       openVendor: selectedFilter?.id == 1 ? 1 : 0,
@@ -767,14 +788,14 @@ export default function Home({ route, navigation }) {
     homeData(location, selectedFilter);
   };
 
-  const onSpeechStartHandler = e => { };
-  const onSpeechEndHandler = e => {
+  const onSpeechStartHandler = (e) => {};
+  const onSpeechEndHandler = (e) => {
     updateState({
       isVoiceRecord: false,
     });
   };
 
-  const onSpeechResultsHandler = e => {
+  const onSpeechResultsHandler = (e) => {
     let text = e.value[0];
     moveToNewScreen(navigationStrings.SEARCHPRODUCTOVENDOR, {
       voiceInput: text,
@@ -789,7 +810,7 @@ export default function Home({ route, navigation }) {
     });
     try {
       await Voice.start(langType);
-    } catch (error) { }
+    } catch (error) {}
   };
 
   const _onVoiceStop = async () => {
@@ -799,13 +820,11 @@ export default function Home({ route, navigation }) {
     try {
       await Voice.stop();
     } catch (error) {
-      console.log('error raised', error);
+      console.log("error raised", error);
     }
   };
 
-
-
-  const showAllProducts = item => {
+  const showAllProducts = (item) => {
     moveToNewScreen(navigationStrings.PRODUCT_LIST, {
       id: item?.data?.category_detail?.id,
       vendor: false,
@@ -817,15 +836,13 @@ export default function Home({ route, navigation }) {
     })();
   };
 
-  const showAllSpotDealAndSelectedProducts = item => {
-    console.log(item, 'selected product for spoatdeals');
+  const showAllSpotDealAndSelectedProducts = (item) => {
+    console.log(item, "selected product for spoatdeals");
     moveToNewScreen(
       navigationStrings.SPOTDEALPRODUCTSANDSELECTEDPRODUCTS,
-      item,
+      item
     )();
   };
-
-
 
   const _closeModal = () => {
     updateState({
@@ -833,13 +850,17 @@ export default function Home({ route, navigation }) {
     });
   };
 
-
-  const addressDone = async data_ => {
+  const addressDone = async (data_) => {
     setisLocationModal(false);
     actions.locationData(data_);
     setisSelectViaMap(false);
 
     homeData(data_);
+  };
+
+  const onPressMenu = () => {
+    console.log("onPressMenu");
+    modalRef.current?.openDrawer()
   };
 
   const renderHomeScreen = () => {
@@ -858,17 +879,18 @@ export default function Home({ route, navigation }) {
           isVoiceRecord={isVoiceRecord}
           _onVoiceStop={_onVoiceStop}
           onPressAddress={() => setisSelectViaMap(true)}
+          onPressMenu={onPressMenu}
         />
         <DashBoardFiveV2Api
           handleRefresh={() => handleRefresh()}
-          bannerPress={item => bannerPress(item)}
+          bannerPress={(item) => bannerPress(item)}
           isLoading={isLoading}
           isRefreshing={isRefreshing}
           appMainData={appMainData}
-          onPressCategory={item => {
+          onPressCategory={(item) => {
             onPressCategory(item);
           }}
-          onPressVendor={item => {
+          onPressVendor={(item) => {
             onPressVendor(item);
           }}
           isDineInSelected={isDineInSelected}
@@ -905,149 +927,159 @@ export default function Home({ route, navigation }) {
               currency: currencies?.primary_currency?.id,
               language: languages?.primary_language?.id,
               // systemuser: DeviceInfo.getUniqueId(),
-            },
+            }
           );
-          console.log('pending res==>>>', res.data.order_list);
+          console.log("pending res==>>>", res.data.order_list);
           let orders =
             pageActive == 1
               ? res.data.order_list.data
               : [...pendingNotifications, ...res.data.order_list.data];
           actions.pendingNotifications(orders);
         } catch (error) {
-          console.log('erro rirased', error);
+          console.log("erro rirased", error);
         }
       })();
     }
   }, []);
 
   const _onPressSubscribe = () => {
-    actions.changeSubscriptionModal(false)
+    actions.changeSubscriptionModal(false);
     moveToNewScreen(navigationStrings.SUBSCRIPTION)();
   };
 
   return (
-    <WrapperContainer
-      statusBarColor={colors.white}
-      bgColor={isDarkMode ? MyDarkTheme.colors.background : colors.white}
-      isLoading={searchDataLoader}
+    <>
+      <WrapperContainer
+        statusBarColor={colors.white}
+        bgColor={isDarkMode ? MyDarkTheme.colors.background : colors.white}
+        isLoading={searchDataLoader}
+        isTransculent={true}
       >
-      <>{renderHomeScreen()}</>
-      <Modal
-        visible={isLocationModal}
-        onDismiss={() => {
-          setisSelectViaMap(false);
-        }}
-        transparent={true}>
-        <View
-          style={{
-            backgroundColor: 'rgba(0,0,0,0.6)',
-            width: WINDOW_WIDTH,
-            height: WINDOW_HEIGHT,
-          }}>
+        <>{renderHomeScreen()}</>
+        <Modal
+          visible={isLocationModal}
+          onDismiss={() => {
+            setisSelectViaMap(false);
+          }}
+          transparent={true}
+        >
           <View
             style={{
-              alignSelf: 'center',
-              marginTop: moderateScaleVertical(106),
-              height: moderateScaleVertical(167),
-              backgroundColor: colors.white,
-              width: moderateScale(312),
-            }}>
-            <View style={{ marginHorizontal: moderateScale(21) }}>
-              <IconTextRow
-                icon={imagePath.ic_map}
-                containerStyle={{ marginTop: moderateScaleVertical(26) }}
-                textStyle={{
-                  color: colors.black,
-                  marginLeft: moderateScale(12),
-                }}
-                text="Please provide your location."
-              />
-              <GradientButton
-                onPress={checkAndGetLocation}
-                leftImgSrc={imagePath.ic_map}
-                leftImgStyle={{
-                  resizeMode: 'contain',
-                  height: moderateScaleVertical(20),
-                  width: moderateScale(20),
-                }}
-                btnText="Allow to track Current Location"
-                textStyle={{ color: colors.white, fontSize: textScale(12) }}
-                containerStyle={{
-                  backgroundColor: colors.orangeBtn,
-                  marginTop: moderateScaleVertical(14),
-                  borderRadius: 4,
-                  height: moderateScaleVertical(36),
-                }}
-              />
-              <TouchableOpacity
-                style={{
-                  marginTop: moderateScaleVertical(11),
-                  height: moderateScaleVertical(36),
-                  borderRadius: 4,
-                  borderWidth: 1,
-                  borderColor: colors.profileInputborder,
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  paddingHorizontal: moderateScaleVertical(12),
-                }}
-                onPress={() => {
-                  setisLocationModal(false);
-                  setTimeout(() => {
-                    setisSelectViaMap(true);
-                  }, 500);
-                }}>
-                <Image source={imagePath.icoSearch} />
-                <Text
+              backgroundColor: "rgba(0,0,0,0.6)",
+              width: WINDOW_WIDTH,
+              height: WINDOW_HEIGHT,
+            }}
+          >
+            <View
+              style={{
+                alignSelf: "center",
+                marginTop: moderateScaleVertical(106),
+                height: moderateScaleVertical(167),
+                backgroundColor: colors.white,
+                width: moderateScale(312),
+              }}
+            >
+              <View style={{ marginHorizontal: moderateScale(21) }}>
+                <IconTextRow
+                  icon={imagePath.ic_map}
+                  containerStyle={{ marginTop: moderateScaleVertical(26) }}
+                  textStyle={{
+                    color: colors.black,
+                    marginLeft: moderateScale(12),
+                  }}
+                  text="Please provide your location."
+                />
+                <GradientButton
+                  onPress={checkAndGetLocation}
+                  leftImgSrc={imagePath.ic_map}
+                  leftImgStyle={{
+                    resizeMode: "contain",
+                    height: moderateScaleVertical(20),
+                    width: moderateScale(20),
+                  }}
+                  btnText="Allow to track Current Location"
+                  textStyle={{ color: colors.white, fontSize: textScale(12) }}
+                  containerStyle={{
+                    backgroundColor: colors.orangeBtn,
+                    marginTop: moderateScaleVertical(14),
+                    borderRadius: 4,
+                    height: moderateScaleVertical(36),
+                  }}
+                />
+                <TouchableOpacity
                   style={{
-                    marginLeft: moderateScale(8),
-                    color: colors.blackOpacity66,
-                    fontSize: textScale(12),
-                    fontFamily: fontFamily?.medium,
-                  }}>
-                  Add Location Manually
-                </Text>
-              </TouchableOpacity>
+                    marginTop: moderateScaleVertical(11),
+                    height: moderateScaleVertical(36),
+                    borderRadius: 4,
+                    borderWidth: 1,
+                    borderColor: colors.profileInputborder,
+                    flexDirection: "row",
+                    alignItems: "center",
+                    paddingHorizontal: moderateScaleVertical(12),
+                  }}
+                  onPress={() => {
+                    setisLocationModal(false);
+                    setTimeout(() => {
+                      setisSelectViaMap(true);
+                    }, 500);
+                  }}
+                >
+                  <Image source={imagePath.icoSearch} />
+                  <Text
+                    style={{
+                      marginLeft: moderateScale(8),
+                      color: colors.blackOpacity66,
+                      fontSize: textScale(12),
+                      fontFamily: fontFamily?.medium,
+                    }}
+                  >
+                    Add Location Manually
+                  </Text>
+                </TouchableOpacity>
+              </View>
             </View>
           </View>
-        </View>
-      </Modal>
+        </Modal>
 
-      <Modal visible={isSelectViaMap}>
-        <WrapperContainer>
-          <OoryksHeader
-            titleStyle={{
-              color: colors.black
-            }}
-            onPressLeft={() => {
-              setisSelectViaMap(false);
-              if (
-                isEmpty(currentLocation?.address) &&
-                isEmpty(location?.address)
-              ) {
-                setTimeout(() => {
-                  setisLocationModal(true);
-                }, 500);
-              }
-            }}
-            leftTitle="Add Your Location"
-            isCustomLeftPress
-          />
-
-          <View
-            style={{
-              flex: 1,
-              marginHorizontal: moderateScale(12),
-              overflow: 'hidden',
-              borderRadius: moderateScale(12),
-            }}>
-            <SelectSearchFromMap
-              addressDone={addressDone}
-              currentLocation={currentLocation}
-              location={location}
+        <Modal visible={isSelectViaMap}>
+          <WrapperContainer>
+            <OoryksHeader
+              titleStyle={{
+                color: colors.black,
+              }}
+              onPressLeft={() => {
+                setisSelectViaMap(false);
+                if (
+                  isEmpty(currentLocation?.address) &&
+                  isEmpty(location?.address)
+                ) {
+                  setTimeout(() => {
+                    setisLocationModal(true);
+                  }, 500);
+                }
+              }}
+              leftTitle="Add Your Location"
+              isCustomLeftPress
             />
-          </View>
-        </WrapperContainer>
-      </Modal>
-    </WrapperContainer>
+
+            <View
+              style={{
+                flex: 1,
+                marginHorizontal: moderateScale(12),
+                overflow: "hidden",
+                borderRadius: moderateScale(12),
+              }}
+            >
+              <SelectSearchFromMap
+                addressDone={addressDone}
+                currentLocation={currentLocation}
+                location={location}
+              />
+            </View>
+          </WrapperContainer>
+        </Modal>
+      </WrapperContainer>
+      <CustomDrawerModal ref={modalRef} />
+    </>
   );
 }

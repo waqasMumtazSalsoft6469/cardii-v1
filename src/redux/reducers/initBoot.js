@@ -13,6 +13,7 @@ const initial_state = {
     bottomBarGradientB: 'rgba(97,160,242,1)',
     backgroundGrey: '#F4F7FA',
     currencyRed: '#F44746',
+    secondary_color_new: '#037AE8',
   },
   themeLayouts: {},
   appData: {},
@@ -34,7 +35,8 @@ const initial_state = {
   themeToggle: false,
   searchText: [],
   redirectedFrom: '',
-  deeplinkUrl:''
+  deeplinkUrl:'',
+  isMenu: false
   //internetConnection: false,
 };
 
@@ -193,6 +195,13 @@ export default function (state = initial_state, action) {
     }
     case types.DEEPLINK_URL: {
       return {...state, deeplinkUrl: action.payload};
+    }
+
+    case types.MENU: {
+      return {
+        ...state,
+        isMenu: action.payload
+      }
     }
 
     default: {

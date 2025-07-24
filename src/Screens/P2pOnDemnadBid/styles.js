@@ -1,4 +1,4 @@
-import { StyleSheet, Dimensions } from "react-native";
+import { StyleSheet, Dimensions, Platform } from "react-native";
 import colors from "../../styles/colors";
 import {
   height,
@@ -56,6 +56,20 @@ export default ({ themeColors, fontFamily }) => {
       ...StyleSheet.absoluteFillObject,
       borderRadius: 4,
       backgroundColor: "rgba(0,0,0,0.3)",
+    },
+    blurContainerInput: {
+      flexDirection: 'row',
+     // alignItems: 'center',
+      width: '100%',
+      height: moderateScale(40),
+      borderWidth:5,
+      borderColor:'red',
+      borderRadius: moderateScale(12),
+      paddingHorizontal: moderateScale(10),
+      marginHorizontal: moderateScale(10),
+      backgroundColor: colors.white,
+    //  backgroundColor: Platform.OS === 'android' ? 'rgba(0,0,0,0.3)' : 'transparent',
+       //overflow: 'hidden',
     },
     blurContainer: {
       position: "absolute",
@@ -266,8 +280,8 @@ export default ({ themeColors, fontFamily }) => {
     locationIcon: {
       height: moderateScale(18),
       width: moderateScale(18),
-      tintColor: themeColors.primary_color,
-      marginRight: moderateScale(2),
+      // tintColor: themeColors.primary_color,
+      // marginRight: moderateScale(2),
     },
     locationTxt: {
       paddingLeft: 5,

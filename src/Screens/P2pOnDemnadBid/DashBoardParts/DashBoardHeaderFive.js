@@ -7,6 +7,7 @@ import {
   StatusBar,
   Dimensions,
   StyleSheet,
+  Platform,
 } from "react-native";
 import { useSelector } from "react-redux";
 import imagePath from "../../../constants/imagePath";
@@ -32,6 +33,8 @@ import Video from "react-native-video";
 import { videos } from "../../../assets/videos";
 import { BlurView } from "@react-native-community/blur";
 
+const { width, height } = Dimensions.get("window");
+
 export default function DashBoardHeaderFive({
   // navigation = {},
   location = [],
@@ -48,6 +51,7 @@ export default function DashBoardHeaderFive({
   nearestLoc,
   currentLoc,
   onPressAddress = () => {},
+  onPressMenu
 }) {
   const navigation = useNavigation();
   const { top } = useSafeAreaInsets();
@@ -56,6 +60,7 @@ export default function DashBoardHeaderFive({
   const { appData, themeColors, appStyle, themeColor, themeToggle } =
     useSelector((state) => state?.initBoot);
   const { userData } = useSelector((state) => state?.auth);
+  // console.log("User Data: *****>>>>>>>>>>>>>>>", userData);
 
   const darkthemeusingDevice = getColorSchema();
   const isDarkMode = themeToggle ? darkthemeusingDevice : themeColor;
@@ -74,29 +79,10 @@ export default function DashBoardHeaderFive({
     "200/400"
   );
 
-  const renderItems = () => (
-    <>
-      <View style={[styles.child, { backgroundColor: "tomato" }]}>
-        <Text style={styles.text}>1</Text>
-      </View>
-      <View style={[styles.child, { backgroundColor: "thistle" }]}>
-        <Text style={styles.text}>2</Text>
-      </View>
-      <View style={[styles.child, { backgroundColor: "skyblue" }]}>
-        <Text style={styles.text}>3</Text>
-      </View>
-      <View style={[styles.child, { backgroundColor: "teal" }]}>
-        <Text style={styles.text}>4</Text>
-      </View>
-    </>
-  );
-
   return (
     <View
       style={{
-        // paddingHorizontal: moderateScale(16),
         backgroundColor: "red",
-        // paddingTop: top,
         height: "35%",
       }}
     >
@@ -105,7 +91,15 @@ export default function DashBoardHeaderFive({
         backgroundColor="transparent"
         barStyle="light-content"
       />
-      <View style={{ position: "absolute", zIndex: 999, top: top, left: 15, right:15 }}>
+      <View
+        style={{
+          position: "absolute",
+          zIndex: 999,
+          top: top,
+          left: 15,
+          right: 15,
+        }}
+      >
         <View
           style={{
             flexDirection: "row",
@@ -113,42 +107,50 @@ export default function DashBoardHeaderFive({
             justifyContent: "space-between",
           }}
         >
-          <Image
-            source={imagePath.icMenuIcon}
-            style={{
-              width: moderateScale(30),
-              height: moderateScale(30),
-            }}
-            tintColor={colors.white}
-            resizeMode="contain"
-          />
-
-          <TouchableOpacity
-            onPress={onPressAddress}
-            style={{
-              flexDirection: "row",
-              alignItems: "center",
-            }}
-          >
-            <Image
-              style={styles.locationIcon}
-              source={imagePath.ic_map}
-              resizeMode="contain"
-            />
-            <Text
-              numberOfLines={1}
-              style={{
-                color: isDarkMode ? MyDarkTheme.colors.text : colors.black,
-                fontFamily: fontFamily.regular,
-                maxWidth: moderateScale(180),
-                fontSize: textScale(12),
-              }}
+          <View style={{ flexDirection: "row", alignItems: "center" }}>
+            <TouchableOpacity 
+           // onPress={() => navigation.openDrawer()}
+            onPress={onPressMenu}
+            activeOpacity={0.7}
             >
-              {currentLocation?.address || location?.address}
-            </Text>
-
-            <Image source={imagePath.ic_down_arrow} />
-          </TouchableOpacity>
+              <Image
+                source={imagePath.icMenuIcon}
+                style={{
+                  width: moderateScale(28),
+                  height: moderateScale(28),
+                }}
+                tintColor={colors.white}
+                resizeMode="contain"
+              />
+            </TouchableOpacity>
+            <View style={{ marginLeft: moderateScale(12) }}>
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <Text
+                  numberOfLines={1}
+                  style={{
+                    color: colors.white,
+                    fontFamily: fontFamily.bold,
+                    fontSize: textScale(13),
+                  }}
+                >{`Hi, ${userData?.name}!`}</Text>
+                <Image
+                  style={styles.locationIcon}
+                  source={imagePath.handHi}
+                  resizeMode="contain"
+                />
+              </View>
+              <Text
+                numberOfLines={1}
+                style={{
+                  color: colors.white,
+                  fontFamily: fontFamily.regular,
+                  fontSize: textScale(10),
+                }}
+              >
+                Energy Solutions Tailored For You!
+              </Text>
+            </View>
+          </View>
 
           <ButtonImage
             onPress={() =>
@@ -158,55 +160,137 @@ export default function DashBoardHeaderFive({
             }
             image={imagePath.ic_notification}
             imgStyle={{
-              tintColor: isDarkMode ? MyDarkTheme.colors.text : colors.black,
+              tintColor: colors.white,
             }}
           />
         </View>
-
+        {/* Search Container */}
         <View
           style={{
             flexDirection: "row",
             alignItems: "center",
             justifyContent: "space-between",
-            marginTop: moderateScaleVertical(12),
+            marginTop: moderateScaleVertical(14),
           }}
         >
           <View
             style={{
-              justifyContent: "center",
+              height: moderateScale(35),
+              borderRadius: moderateScale(20),
               flex: 1,
-              height: moderateScale(48),
-              borderRadius: moderateScale(8),
-              backgroundColor: isDarkMode
-                ? MyDarkTheme.colors.lightDark
-                : colors.white,
-              borderWidth: moderateScale(1),
-              borderColor: isDarkMode
-                ? MyDarkTheme.colors.lightDark
-                : colors.borderColor,
+              overflow: "hidden",
+              marginRight: moderateScale(20),
+              // justifyContent:'center'
             }}
           >
-            <TouchableOpacity
+            <BlurView
+              blurType="light"
+              blurAmount={15}
+              //  reducedTransparencyFallbackColor="rgba(255,255,255,0.3)"
               style={{
-                marginHorizontal: moderateScale(8),
-                flexDirection: "row",
-                alignItems: "center",
+                height: moderateScale(34),
+                marginHorizontal: moderateScale(15),
               }}
-              onPress={() =>
-                navigation.navigate(navigationStrings.SEARCHPRODUCTOVENDOR)
-              }
+            >
+              <TouchableOpacity
+                style={{
+                  flex: 1,
+                  backgroundColor: "transparent",
+                  justifyContent: "center",
+                }}
+                onPress={() =>
+                  navigation.navigate(navigationStrings.SEARCHPRODUCTOVENDOR)
+                }
+              >
+                <View
+                  style={{
+                    flexDirection: "row",
+                  }}
+                >
+                  <Image
+                    style={{
+                      tintColor: colors?.white,
+                    }}
+                    source={imagePath.icSearchNew}
+                  />
+                  <Text
+                    style={{
+                      marginLeft: moderateScale(10),
+                      color: colors?.white,
+                    }}
+                  >
+                    Search here...
+                  </Text>
+                </View>
+              </TouchableOpacity>
+            </BlurView>
+          </View>
+          <TouchableOpacity
+            style={{
+              height: moderateScale(35),
+              width: moderateScale(35),
+              borderRadius: moderateScale(17.5),
+              //  backgroundColor: "rgba(0,0,0,0.3)",
+              justifyContent: "center",
+              alignItems: "center",
+              overflow: "hidden",
+            }}
+          >
+            <BlurView
+              blurType="light"
+              blurAmount={15}
+              style={{
+                height: moderateScale(30),
+                width: moderateScale(30),
+                alignItems: "center",
+                justifyContent: "center",
+              }}
             >
               <Image
+                source={imagePath.filter2}
                 style={{
-                  tintColor: isDarkMode
-                    ? MyDarkTheme.colors.text
-                    : colors.textGreyH,
+                  height: moderateScale(18),
+                  width: moderateScale(18),
+                  resizeMode: "contain",
                 }}
-                source={imagePath.icSearchNew}
               />
-            </TouchableOpacity>
+            </BlurView>
+          </TouchableOpacity>
+        </View>
+
+        {/* Heading */}
+        <View style={{ marginTop: moderateScaleVertical(12) }}>
+          <View>
+            <Text
+              numberOfLines={2}
+              style={{
+                fontFamily: fontFamily.bold,
+                color: colors.white,
+                fontSize: textScale(12),
+                lineHeight: 21,
+              }}
+            >
+              Reliable Rides,{"\n"}Anytime, Anywhere
+            </Text>
           </View>
         </View>
+        {/* Button  */}
+        <TouchableOpacity
+          style={{
+            borderWidth: 1,
+            borderColor: colors.white,
+            padding: moderateScale(8),
+            borderRadius: moderateScale(4),
+            width: "30%",
+            alignItems: "center",
+            marginTop: moderateScaleVertical(12),
+          }}
+          activeOpacity={0.7}
+        >
+          <Text style={{ fontSize: textScale(12), color: colors.white }}>
+            Book Now
+          </Text>
+        </TouchableOpacity>
       </View>
       <Swiper>
         <View style={[styles.child]}>
@@ -222,7 +306,13 @@ export default function DashBoardHeaderFive({
           />
           {/* Blur overlay */}
           <BlurView
-            style={StyleSheet.absoluteFill}
+            style={{
+              position: "absolute",
+              top: 0,
+              left: 0,
+              right: 0,
+              height: "35%", // adjust to fit your top card height
+            }}
             blurType="dark"
             blurAmount={50}
             reducedTransparencyFallbackColor="rgba(0, 0, 0, 0.1)"
@@ -232,16 +322,18 @@ export default function DashBoardHeaderFive({
           <Video
             ref={videoRef}
             source={videos.video2}
-            // onLoad={(evnt) => setisVideoLoaded(true)}
-            // onBuffer={(isBuffering) => setBuffering(isBuffering)}
-            // onEnd={() => videoRef?.current.seek(0)}
-            // paused={paused}
             style={{ height: "100%", width: "100%" }}
             resizeMode={"cover"}
           />
           {/* Blur overlay */}
           <BlurView
-            style={StyleSheet.absoluteFill}
+            style={{
+              position: "absolute",
+              top: 0,
+              left: 0,
+              right: 0,
+              height: "35%", // adjust to fit your top card height
+            }}
             blurType="dark"
             blurAmount={10}
             reducedTransparencyFallbackColor="rgba(0, 0, 0, 0.3)"
@@ -251,17 +343,19 @@ export default function DashBoardHeaderFive({
           <Video
             ref={videoRef}
             source={videos.video3}
-            // onLoad={(evnt) => setisVideoLoaded(true)}
-            // onBuffer={(isBuffering) => setBuffering(isBuffering)}
-            // onEnd={() => videoRef?.current.seek(0)}
-            // paused={paused}
             style={{ height: "100%", width: "100%" }}
             resizeMode={"cover"}
           />
           {/* Blur overlay */}
           <BlurView
-            style={StyleSheet.absoluteFill}
-            blurType='dark'
+            style={{
+              position: "absolute",
+              top: 0,
+              left: 0,
+              right: 0,
+              height: "35%", // adjust to fit your top card height
+            }}
+            blurType="dark"
             blurAmount={40}
             reducedTransparencyFallbackColor="rgba(0, 0, 0, 0.3)"
           />

@@ -14,6 +14,7 @@ const WrapperContainer = ({
   barStyle = "dark-content",
   withModal = false,
   isSafeArea = true,
+  isTransculent = false
 }) => {
   const theme = useSelector((state) => state?.initBoot?.themeColor);
   const toggleTheme = useSelector((state) => state?.initBoot?.themeToggle);
@@ -35,6 +36,7 @@ const WrapperContainer = ({
             isDarkMode ? MyDarkTheme.colors.background : statusBarColor
           }
           barStyle={isDarkMode ? "light-content" : barStyle}
+          translucent={isTransculent}
         />
         <View style={{ backgroundColor: bgColor, flex: 1 }}>{children}</View>
         <Loader isLoading={isLoading} withModal={withModal} />
@@ -55,6 +57,7 @@ const WrapperContainer = ({
             isDarkMode ? MyDarkTheme.colors.background : statusBarColor
           }
           barStyle={isDarkMode ? "light-content" : barStyle}
+          translucent={isTransculent}
         />
         <View style={{ backgroundColor: bgColor, flex: 1 }}>{children}</View>
         <Loader isLoading={isLoading} withModal={withModal} />

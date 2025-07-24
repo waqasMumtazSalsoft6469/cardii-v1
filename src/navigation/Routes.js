@@ -43,6 +43,7 @@ import TabRoutesVendorNewTemplate from './VendorApp/TabRoutesVendor';
 import navigationStrings from './navigationStrings';
 import TabRoutesP2pOnDemand from './TabRoutesP2pOnDemand';
 import ProductListOnDemand from '../Screens/ProductList/ProductListOnDemand';
+// import DrawerP2pOnDemand from './DrawerP2pOnDemand';
 
 const Stack = createNativeStackNavigator();
 
@@ -121,7 +122,15 @@ export default function Routes() {
                 component={DrawerRoutes}
                 options={{gestureEnabled: false}}
               />
-            ) : (
+            ) 
+            // : businessType === 8 ? (
+            //   <Stack.Screen
+            //     name={navigationStrings.DRAWER_P2P_ON_DEMAND}
+            //     component={DrawerP2pOnDemand}
+            //     options={{gestureEnabled: false}}
+            //   />
+            // ) 
+            : (
               <Stack.Screen
                 name={navigationStrings.TAB_ROUTES}
                 component={
